@@ -35,17 +35,24 @@ public class User {
 
     @Column(name = "user_username")
     String userName;
+
+    /**
+     * DTO is necessary to not return the email string
+     */
+    @Column(name = "user_email")
+    String email;
+
     /**
      * User password. Is transformed to a hash inside the database,
      * a DTO is necessary to not return the password string
      */
     @Column(name = "user_password")
     String password;
+    
     /**
      * List of all favorite games of the user.
      * A ManyToMany relation is used.
      */
-
     @ManyToMany
     @JoinTable(
         name = "user_games",

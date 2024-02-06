@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 
 /**
  * 
- * DTO of the entity User. The password field is removed
+ * DTO of the object User. The password field is removed from the entity
  * 
  * @author Fried Potato
  */
@@ -19,6 +19,7 @@ import lombok.NoArgsConstructor;
 public class UserDTO {
     Long id;
     String userName;
+
     /**
      * List of all favorite games of the user
      */

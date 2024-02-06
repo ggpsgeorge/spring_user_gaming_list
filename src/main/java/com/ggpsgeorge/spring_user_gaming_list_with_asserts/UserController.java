@@ -9,24 +9,38 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+/**
+ * Controller Class of the User
+ * 
+ * @author Fried Potato
+ */
+
 @Controller
 @RequestMapping("api/v1/users")
 public class UserController {
     
     @Autowired UserService userService;
 
+    /**
+     * Save the User entity to the database
+     * 
+     * @param user User object to be added to the database
+     * @return UserDTO with a ResponseEntity
+     */
     @PostMapping("/add")
     public ResponseEntity<UserDTO> addUser(@RequestBody User user) {
-        User persistedUser = userService.saveUser(user);
-        UserDTO returnUser = persistedUser.transformToDTO(persistedUser);
-        return ResponseEntity.ok().body(returnUser);
+        return ResponseEntity.ok().body(userService.saveUser(user));
     }
 
+    /**
+     * Find a User with a id
+     * 
+     * @param user_id 
+     * @return UserDTO with a ResponseEntity
+     */
     @GetMapping("/{user_id}")
     public ResponseEntity<UserDTO> getUser(@PathVariable Long user_id) {
-        User persistedUser = userService.findUser(user_id);
-        UserDTO returnUser = persistedUser.transformToDTO(persistedUser);
-        return ResponseEntity.ok().body(returnUser);
+        return ResponseEntity.ok().body(userService.findUser(user_id));
     }
 
 }

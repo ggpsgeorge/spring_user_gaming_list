@@ -2,6 +2,8 @@ package com.ggpsgeorge.spring_user_gaming_list_with_asserts;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -30,6 +32,7 @@ public class Game {
     @Column(name = "game_genres")
     List<String> genres;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "games")
     List<User> users;
 }
