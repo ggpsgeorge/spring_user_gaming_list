@@ -14,9 +14,8 @@ public class GameService {
         return gameRepository.save(game);
     }
 
-    public String saveGames(List<Game> games) {
-        gameRepository.saveAll(games);
-        return "Games Added to Database...";
+    public List<Game> saveGames(List<Game> games) {
+        return gameRepository.saveAll(games);
     }
 
     public Game findGame(Long id) {
