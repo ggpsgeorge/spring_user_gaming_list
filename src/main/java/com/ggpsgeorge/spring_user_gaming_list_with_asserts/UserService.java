@@ -30,10 +30,19 @@ public class UserService {
      * @param id id to find the the User
      * @return the userDTO object without the password field
      */
-    public UserDTO findUser(Long id) {
+    public UserDTO safeFindUser(Long id) {
         User persistedUser = userRepository.findById(id).get();
         UserDTO returnUser = persistedUser.transformToDTO(persistedUser);
         return returnUser;
+    }
+
+    /**
+     * 
+     * @param id id to find the the User
+     * @return the User object 
+     */
+    public User findUser(Long id) {
+        return userRepository.findById(id).get();
     }
 
 }
