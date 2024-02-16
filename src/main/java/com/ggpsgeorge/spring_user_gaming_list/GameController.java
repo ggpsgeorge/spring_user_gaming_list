@@ -1,4 +1,4 @@
-package com.ggpsgeorge.spring_user_gaming_list_with_asserts;
+package com.ggpsgeorge.spring_user_gaming_list;
 
 import java.util.List;
 

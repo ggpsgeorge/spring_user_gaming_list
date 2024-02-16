@@ -1,4 +1,4 @@
-package com.ggpsgeorge.spring_user_gaming_list_with_asserts;
+package com.ggpsgeorge.spring_user_gaming_list;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

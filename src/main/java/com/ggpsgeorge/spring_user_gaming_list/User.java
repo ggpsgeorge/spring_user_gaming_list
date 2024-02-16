@@ -1,4 +1,4 @@
-package com.ggpsgeorge.spring_user_gaming_list_with_asserts;
+package com.ggpsgeorge.spring_user_gaming_list;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * One of the main entities.
+ * One of the main entities
  * 
  * @author Fried Potato
  * 
@@ -33,25 +33,25 @@ public class User {
     @Column(name = "user_id")
     Long id;
 
-    @Column(name = "user_username")
+    @Column(name = "user_username", nullable = false)
     String userName;
 
     /**
      * DTO is necessary to not return the email string
      */
-    @Column(name = "user_email")
+    @Column(name = "user_email", nullable = false)
     String email;
 
     /**
      * User password. Is transformed to a hash inside the database,
      * a DTO is necessary to not return the password string
      */
-    @Column(name = "user_password")
+    @Column(name = "user_password", nullable = false)
     String password;
     
     /**
      * List of all favorite games of the user.
-     * A ManyToMany relation is used.
+     * A ManyToMany relation is used
      */
     @ManyToMany
     @JoinTable(
@@ -62,9 +62,9 @@ public class User {
     List<Game> games;
 
     /**
-     * <p>
-     * Function transform a User to a UserDTO
-     * </p>
+     * Function transform a User object to a UserDTO object. The passwords
+     * and email fields are removed
+     * 
      * @param user the user object that will be transformed to userDTO
      * @return the userDTO object
      */

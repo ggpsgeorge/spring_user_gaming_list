@@ -1,4 +1,6 @@
-package com.ggpsgeorge.spring_user_gaming_list_with_asserts;
+package com.ggpsgeorge.spring_user_gaming_list;
+
+import java.net.URI;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -27,11 +29,13 @@ public class UserController {
      * Save the User entity to the database
      * 
      * @param user User object to be added to the database
-     * @return UserDTO in a ResponseEntity
+     * @return UserDTO in a ResponseEntity with 201 Created status
      */
     @PostMapping("/add")
     public ResponseEntity<UserDTO> addUser(@RequestBody User user) {
-        return ResponseEntity.ok().body(userService.saveUser(user));
+        UserDTO persistedUser = userService.saveUser(user);
+        URI uri = URI.create("/api/v1/users/" + persistedUser.getId());
+        return ResponseEntity.created(uri).body(persistedUser);
     }
 
     /**

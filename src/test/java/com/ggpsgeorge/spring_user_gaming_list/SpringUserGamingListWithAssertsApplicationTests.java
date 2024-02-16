@@ -1,10 +1,10 @@
-package com.ggpsgeorge.spring_user_gaming_list_with_asserts;
+package com.ggpsgeorge.spring_user_gaming_list;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class SpringUserGamingListWithAssertsApplicationTests {
+class SpringUserGamingListApplicationTests {
 
 	@Test
 	void contextLoads() {

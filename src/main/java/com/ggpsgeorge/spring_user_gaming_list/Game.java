@@ -1,4 +1,4 @@
-package com.ggpsgeorge.spring_user_gaming_list_with_asserts;
+package com.ggpsgeorge.spring_user_gaming_list;
 
 import java.util.List;
 
@@ -26,7 +26,7 @@ public class Game {
     @Column(name = "game_id")
     Long id;
 
-    @Column(name = "game_name")
+    @Column(name = "game_name", nullable = false)
     String name;
 
     @Column(name = "game_genres")
