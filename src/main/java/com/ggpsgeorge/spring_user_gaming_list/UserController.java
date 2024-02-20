@@ -4,6 +4,7 @@ import java.net.URI;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,6 +26,8 @@ public class UserController {
     @Autowired UserService userService;
     @Autowired GameService gameService;
 
+    @Autowired PasswordEncoder passwordEncoder;
+
     /**
      * Save the User entity to the database
      * 
@@ -33,8 +36,11 @@ public class UserController {
      */
     @PostMapping("/add")
     public ResponseEntity<UserDTO> addUser(@RequestBody User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         UserDTO persistedUser = userService.saveUser(user);
+
         URI uri = URI.create("/api/v1/users/" + persistedUser.getId());
+        
         return ResponseEntity.created(uri).body(persistedUser);
     }
 
