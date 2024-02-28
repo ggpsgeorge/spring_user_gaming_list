@@ -32,7 +32,7 @@ public class UserController {
      * Save the User entity to the database
      * 
      * @param user User object to be added to the database
-     * @return UserDTO in a ResponseEntity with 201 Created status
+     * @return ResponseEntity with a UserDTO object and 201 Created status
      */
     @PostMapping("/add")
     public ResponseEntity<UserDTO> addUser(@RequestBody User user) {
@@ -48,7 +48,7 @@ public class UserController {
      * Find a User with a id
      * 
      * @param user_id 
-     * @return UserDTO in a ResponseEntity
+     * @return ReponseEntity with UserDTO object
      */
     @GetMapping("/{user_id}")
     public ResponseEntity<UserDTO> getUser(@PathVariable Long user_id) {

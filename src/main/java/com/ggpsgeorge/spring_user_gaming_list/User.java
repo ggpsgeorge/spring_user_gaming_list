@@ -17,7 +17,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * One of the main entities
+ * User Model
  * 
  * @author Fried Potato
  * 

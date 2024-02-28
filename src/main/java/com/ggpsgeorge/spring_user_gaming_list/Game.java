@@ -16,6 +16,12 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Game Model
+ * 
+ * @author Fried Potato
+ */
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

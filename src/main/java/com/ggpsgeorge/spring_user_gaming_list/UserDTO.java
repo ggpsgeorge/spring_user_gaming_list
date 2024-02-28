@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 
 /**
  * 
- * DTO of the object User. The password field is removed from the entity
+ * DTO of the User Object. The password and email fields are removed from the User Model
  * 
  * @author Fried Potato
  */

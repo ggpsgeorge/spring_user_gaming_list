@@ -27,7 +27,7 @@ public class GameController {
      * Save the Game entity to the database
      * 
      * @param game
-     * @return Game object in a ResponseEntity
+     * @return ResponseEntity with a game object
      */
     @PostMapping("/add")
     public ResponseEntity<Game> addGame(@RequestBody Game game) {
@@ -38,7 +38,7 @@ public class GameController {
      * Save a list of Game entities to the database
      * 
      * @param games
-     * @return List of Game objects in a ResponseEntity
+     * @return ResponseEntity with a list of game objects
      */
     @PostMapping("/add-many")
     public ResponseEntity<List<Game>> addGames(@RequestBody List<Game> games) {
@@ -48,7 +48,7 @@ public class GameController {
     /**
      * Find a game 
      * @param game_id
-     * @return Game object in a ReponseEntity
+     * @return ReponseEntity with a game object
      */
     @GetMapping("/{game_id}")
     public ResponseEntity<Game> getGame(@PathVariable Long game_id) {
@@ -58,7 +58,7 @@ public class GameController {
     /**
      * Find all saved games in the database
      * 
-     * @return List of Game objects in a ReponseEntity
+     * @return ReponseEntity with a list of game objects
      */
     @GetMapping("/all")
     public ResponseEntity<List<Game>> getGames() {
