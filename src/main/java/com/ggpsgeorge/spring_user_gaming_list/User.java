@@ -71,11 +71,11 @@ public class User {
      * @return the userDTO object
      */
     public UserDTO transformToDTO(User user) {
-        UserDTO newUser = new UserDTO();
-
-        newUser.setId(user.id);
-        newUser.setUserName(user.userName);
-        newUser.setGames(user.games);
+        UserDTO newUser = UserDTO.builder()
+        .id(user.getId())
+        .userName(user.getUserName())
+        .games(user.getGames())
+        .build();
 
         return newUser;
     }

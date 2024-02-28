@@ -34,6 +34,10 @@ public class UserService {
      */
     public UserDTO safeFindUser(Long id) {
         User persistedUser = userRepository.findById(id).orElse(null);
+        if (persistedUser == null) {
+            return null;
+        }
+        
         UserDTO returnUser = persistedUser.transformToDTO(persistedUser);
         return returnUser;
     }
