@@ -1,5 +1,6 @@
 package com.ggpsgeorge.spring_user_gaming_list;
 
+import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,11 @@ public class GameController {
      */
     @PostMapping("/add")
     public ResponseEntity<Game> addGame(@RequestBody Game game) {
-        return ResponseEntity.ok().body(gameService.saveGame(game));
+        Game savedGame = gameService.saveGame(game);
+
+        URI uri = URI.create("/api/v1/games/" + savedGame.getId());
+
+        return ResponseEntity.created(uri).body(savedGame);
     }
 
     /**
