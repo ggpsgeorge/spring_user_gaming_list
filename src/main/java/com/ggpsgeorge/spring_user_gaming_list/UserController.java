@@ -3,6 +3,7 @@ package com.ggpsgeorge.spring_user_gaming_list;
 import java.net.URI;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import jakarta.validation.Valid;
 
 /**
  * User Controller Class
@@ -26,7 +29,7 @@ public class UserController {
     @Autowired UserService userService;
     @Autowired GameService gameService;
 
-    @Autowired PasswordEncoder passwordEncoder;
+    // @Autowired PasswordEncoder passwordEncoder;
 
     /**
      * Save the User entity to the database
@@ -35,13 +38,8 @@ public class UserController {
      * @return ResponseEntity with a UserDTO object and 201 Created status
      */
     @PostMapping("/add")
-    public ResponseEntity<UserDTO> addUser(@RequestBody User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        UserDTO persistedUser = userService.saveUser(user);
-
-        URI uri = URI.create("/api/v1/users/" + persistedUser.getId());
-        
-        return ResponseEntity.created(uri).body(persistedUser);
+    public ResponseEntity<UserDTO> addUser(@RequestBody @Valid User user) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(userService.saveUser(user));
     }
 
     /**

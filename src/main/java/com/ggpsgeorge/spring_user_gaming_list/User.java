@@ -71,6 +71,7 @@ public class User {
      * @return the userDTO object
      */
     public UserDTO transformToDTO(User user) {
+        
         UserDTO newUser = UserDTO.builder()
         .id(user.getId())
         .userName(user.getUserName())

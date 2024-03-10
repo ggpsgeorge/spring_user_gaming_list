@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import jakarta.validation.Valid;
+
 /**
  * Game Controller Class
  * 
@@ -31,7 +33,7 @@ public class GameController {
      * @return ResponseEntity with a game object
      */
     @PostMapping("/add")
-    public ResponseEntity<Game> addGame(@RequestBody Game game) {
+    public ResponseEntity<Game> addGame(@RequestBody @Valid Game game) {
         Game savedGame = gameService.saveGame(game);
 
         URI uri = URI.create("/api/v1/games/" + savedGame.getId());
@@ -46,7 +48,7 @@ public class GameController {
      * @return ResponseEntity with a list of game objects
      */
     @PostMapping("/add-many")
-    public ResponseEntity<List<Game>> addGames(@RequestBody List<Game> games) {
+    public ResponseEntity<List<Game>> addGames(@RequestBody @Valid List<Game> games) {
         return ResponseEntity.ok().body(gameService.saveGames(games));
     }
 
