@@ -1,9 +1,9 @@
 package com.ggpsgeorge.spring_user_gaming_list;
 
-import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,11 +34,7 @@ public class GameController {
      */
     @PostMapping("/add")
     public ResponseEntity<Game> addGame(@RequestBody @Valid Game game) {
-        Game savedGame = gameService.saveGame(game);
-
-        URI uri = URI.create("/api/v1/games/" + savedGame.getId());
-
-        return ResponseEntity.created(uri).body(savedGame);
+        return ResponseEntity.status(HttpStatus.CREATED).body(gameService.saveGame(game));
     }
 
     /**
@@ -49,7 +45,7 @@ public class GameController {
      */
     @PostMapping("/add-many")
     public ResponseEntity<List<Game>> addGames(@RequestBody @Valid List<Game> games) {
-        return ResponseEntity.ok().body(gameService.saveGames(games));
+        return ResponseEntity.status(HttpStatus.CREATED).body(gameService.saveGames(games));
     }
 
     /**
