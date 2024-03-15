@@ -17,30 +17,11 @@ public class UserService {
     /**
      * 
      * @param user User object to be saved in the database
-     * @return UserDTO object
+     * @return User object
      */
-    public UserDTO saveUser(User user) {
-        User persistedUser = userRepository.save(user);
-        UserDTO returnUser = persistedUser.transformToDTO(persistedUser);
-        return returnUser;
+    public User saveUser(User user) {
+        return userRepository.save(user);
     }    
-
-    /**
-     * Will find the User and return the DTO. So, the 
-     * password and email fields from User are removed
-     * 
-     * @param id id to find a User
-     * @return UserDTO object, if not exists then null
-     */
-    public UserDTO safeFindUser(Long id) {
-        User persistedUser = userRepository.findById(id).orElse(null);
-        if (persistedUser == null) {
-            return null;
-        }
-        
-        UserDTO returnUser = persistedUser.transformToDTO(persistedUser);
-        return returnUser;
-    }
 
     /**
      * 

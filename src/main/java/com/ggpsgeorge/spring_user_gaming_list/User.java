@@ -33,23 +33,23 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "user_id")
-    Long id;
+    private Long id;
 
     @Column(name = "user_username", nullable = false)
-    String userName;
+    private String userName;
 
     /**
      * DTO is necessary to not return the email string
      */
     @Column(name = "user_email", nullable = false)
-    String email;
+    private String email;
 
     /**
      * User password. Is transformed to a hash inside the database,
      * a DTO is necessary to not return the password string
      */
     @Column(name = "user_password", nullable = false)
-    String password;
+    private String password;
     
     /**
      * List of all favorite games of the user.
@@ -61,24 +61,6 @@ public class User {
         joinColumns = @JoinColumn(name = "game_id"),
         inverseJoinColumns = @JoinColumn(name = "user_id")
     )
-    List<Game> games;
-
-    /**
-     * Function transform a User object to a UserDTO object. The passwords
-     * and email fields are removed
-     * 
-     * @param user the user object that will be transformed to userDTO
-     * @return the userDTO object
-     */
-    public UserDTO transformToDTO(User user) {
-        
-        UserDTO newUser = UserDTO.builder()
-        .id(user.getId())
-        .userName(user.getUserName())
-        .games(user.getGames())
-        .build();
-
-        return newUser;
-    }
+    private List<Game> games;
     
 }

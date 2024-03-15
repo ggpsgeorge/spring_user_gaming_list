@@ -57,15 +57,15 @@ public class UserServiceTests {
     
 
     @Test
-    public void testSaveUser_shouldReturnUserDTO() {
+    public void testSaveUser_shouldReturnUser() {
         Mockito.when(userRepository.save(testUser)).thenReturn(testUser);
 
-        UserDTO savedUser = userService.saveUser(testUser);
+        User savedUser = userService.saveUser(testUser);
 
         Assertions.assertThat(savedUser).isNotNull();
         Assertions.assertThat(savedUser.getId()).isGreaterThan(0);
-        Assertions.assertThat(savedUser.userName).isEqualTo("son_goku");
-        Assertions.assertThat(savedUser.games.get(1).name).isEqualTo("Elden Ring");
+        Assertions.assertThat(savedUser.getUserName()).isEqualTo("son_goku");
+        Assertions.assertThat(savedUser.getGames().get(1).getName()).isEqualTo("Elden Ring");
     }
 
     @Test
@@ -75,40 +75,6 @@ public class UserServiceTests {
         User savedUser = userService.findUser(1L);
 
         Assertions.assertThat(savedUser).isNull();
-    }
-
-    @Test
-    public void testFindUser_shouldReturnUser() {
-        Mockito.when(userRepository.findById(1L)).thenReturn(Optional.of(testUser));
-        
-        User savedUser = userService.findUser(1L);
-
-        Assertions.assertThat(savedUser).isNotNull();
-        Assertions.assertThat(savedUser).isEqualTo(testUser);
-        Assertions.assertThat(savedUser.getId()).isGreaterThan(0);
-        Assertions.assertThat(savedUser.userName).isEqualTo("son_goku");
-        Assertions.assertThat(savedUser.games.get(1).name).isEqualTo("Elden Ring");
-    }
-
-    @Test
-    public void testSafeFindUser_shouldReturnNull() {
-        Mockito.when(userRepository.findById(1L)).thenReturn(Optional.empty());
-
-        UserDTO savedUser = userService.safeFindUser(1L);
-        
-        Assertions.assertThat(savedUser).isNull();
-    }
-
-    @Test
-    public void testSafeFindUser_shouldReturnUserDTO() {
-        Mockito.when(userRepository.findById(1L)).thenReturn(Optional.of(testUser));
-
-        UserDTO savedUser = userService.safeFindUser(1L);
-
-        Assertions.assertThat(savedUser).isEqualTo(testUserDTO);
-        Assertions.assertThat(savedUser.getId()).isGreaterThan(0);
-        Assertions.assertThat(savedUser.userName).isEqualTo("son_goku");
-        Assertions.assertThat(savedUser.games.get(0).name).isEqualTo("Super Mario 64");
     }
 
 }

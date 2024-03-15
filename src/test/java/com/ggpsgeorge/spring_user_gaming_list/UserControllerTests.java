@@ -3,16 +3,16 @@ package com.ggpsgeorge.spring_user_gaming_list;
 import java.util.Arrays;
 import java.util.List;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.json.AutoConfigureJsonTesters;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -68,34 +68,35 @@ public class UserControllerTests {
     .build();
 
     @Test
-    public void testGetUser_shouldReturnUserDTO() 
+    public void testGetUser_shouldReturnUserDTO200Ok() 
         throws JsonProcessingException, Exception {
 
-        Mockito.when(userService.safeFindUser(1L)).thenReturn(testUserDTO);
-
+        Mockito.when(userService.findUser(testUser.getId())).thenReturn(testUser);
+        
         String request = objectMapper.writeValueAsString(testUserDTO);
         ResultActions response = mockMvc.perform(get(ENDPOINT + "/1")
             .contentType(CONTENT_TYPE)
             .content(request));
         
-        response.andExpect(status().isOk());
-        response.andExpect(jsonPath("$.userName", is(testUserDTO.getUserName())));
+        response.andExpect(status().isOk())
+            .andExpect(jsonPath("$.userName", is(testUserDTO.getUserName())))
+            .andDo(MockMvcResultHandlers.print());
     }
 
     @Test
-    public void testAddUser_shouldReturnUserDTO() 
+    public void testAddUser_shouldReturnUserDTO201Created() 
         throws JsonProcessingException, Exception {
         
-        Mockito.when(userService.saveUser(testUser)).thenReturn(testUserDTO);
-
-        Assertions.assertThat(testUser).isNotNull();
+        Mockito.when(userService.saveUser(testUser)).thenReturn(testUser);
         
         String request = objectMapper.writeValueAsString(testUser);
+        
         ResultActions response = mockMvc.perform(post(ENDPOINT + "/add")
-            .content(request)
-            .contentType(MediaType.APPLICATION_JSON));
-
+            .contentType(CONTENT_TYPE)
+            .content(request));
+            
         response.andExpect(status().isCreated())
-            .andExpect(jsonPath("$.userName", is(testUserDTO.getUserName())));
+            .andExpect(jsonPath("$.userName", is(testUserDTO.getUserName())))
+            .andDo(MockMvcResultHandlers.print());
     }
 }

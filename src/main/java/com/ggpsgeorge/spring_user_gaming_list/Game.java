@@ -32,15 +32,15 @@ public class Game {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "game_id")
-    Long id;
+    private Long id;
 
     @Column(name = "game_name", nullable = false)
-    String name;
+    private String name;
 
     @Column(name = "game_genres")
-    List<String> genres;
+    private List<String> genres;
 
     @JsonIgnore
     @ManyToMany(mappedBy = "games")
-    List<User> users;
+    private List<User> users;
 }

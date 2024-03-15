@@ -1,5 +1,8 @@
 package com.ggpsgeorge.spring_user_gaming_list;
 
+import java.util.List;
+
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,12 +24,13 @@ import jakarta.validation.Valid;
  */
 
 @Controller
-@RequestMapping("api/v1/users")
+@RequestMapping("/api/v1/users")
 public class UserController {
     
     @Autowired UserService userService;
     @Autowired GameService gameService;
     @Autowired PasswordEncoder passwordEncoder;
+    @Autowired ModelMapper modelMapper;
 
     /**
      * Save the User entity to the database
@@ -37,7 +41,7 @@ public class UserController {
     @PostMapping("/add")
     public ResponseEntity<UserDTO> addUser(@RequestBody @Valid User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return ResponseEntity.status(HttpStatus.CREATED).body(userService.saveUser(user));
+        return ResponseEntity.status(HttpStatus.CREATED).body(transformToDTO(user));
     }
 
     /**
@@ -48,7 +52,7 @@ public class UserController {
      */
     @GetMapping("/{user_id}")
     public ResponseEntity<UserDTO> getUser(@PathVariable Long user_id) {
-        return ResponseEntity.ok().body(userService.safeFindUser(user_id));
+        return ResponseEntity.ok().body(transformToDTO(userService.findUser(user_id)));
     }
 
     /**
@@ -65,10 +69,17 @@ public class UserController {
         User persistedUser = userService.findUser(user_id);
         Game persistedGame = gameService.findGame(game_id);
 
-        persistedUser.games.add(persistedGame);
+        List<Game> games = persistedUser.getGames();
+        games.add(persistedGame);
+        persistedUser.setGames(games);
+        
         userService.saveUser(persistedUser);
         
-        return ResponseEntity.ok().body(userService.safeFindUser(user_id));
+        return ResponseEntity.ok().body(transformToDTO(persistedUser));
+    }
+
+    private UserDTO transformToDTO(User model){
+        return modelMapper.map(model, UserDTO.class);
     }
 
 }
