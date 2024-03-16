@@ -41,7 +41,7 @@ public class UserController {
     @PostMapping("/add")
     public ResponseEntity<UserDTO> addUser(@RequestBody @Valid User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return ResponseEntity.status(HttpStatus.CREATED).body(transformToDTO(user));
+        return ResponseEntity.status(HttpStatus.CREATED).body(transformToDTO(userService.saveUser(user)));
     }
 
     /**
