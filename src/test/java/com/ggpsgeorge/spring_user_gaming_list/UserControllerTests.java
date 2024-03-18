@@ -64,6 +64,7 @@ public class UserControllerTests {
     UserDTO testUserDTO = UserDTO.builder()
     .id(1L)
     .userName("son_goku")
+    .email("sonGoku@dbz.com")
     .games(games)
     .build();
 
@@ -80,6 +81,19 @@ public class UserControllerTests {
         
         response.andExpect(status().isOk())
             .andExpect(jsonPath("$.userName", is(testUserDTO.getUserName())))
+            .andDo(MockMvcResultHandlers.print());
+    }
+
+    @Test
+    public void testGetUser_shouldReturn404NotFound() 
+        throws JsonProcessingException, Exception{
+
+        Mockito.when(userService.findUser(1L)).thenReturn(null);
+
+        ResultActions response = mockMvc.perform(get(ENDPOINT + "/1")
+            .contentType(CONTENT_TYPE));
+        
+        response.andExpect(status().isNotFound())
             .andDo(MockMvcResultHandlers.print());
     }
 

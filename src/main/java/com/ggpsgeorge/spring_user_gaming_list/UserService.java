@@ -20,7 +20,17 @@ public class UserService {
      * @return User object
      */
     public User saveUser(User user) {
-        return userRepository.save(user);
+        User savedUser = userRepository.save(user);
+        
+        User returnUser = User.builder()
+        .id(savedUser.getId())
+        .userName(savedUser.getUserName())
+        .email(savedUser.getEmail())
+        .password(savedUser.getPassword())
+        .games(savedUser.getGames())
+        .build();
+
+        return returnUser;
     }    
 
     /**

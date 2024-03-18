@@ -53,6 +53,10 @@ public class UserController {
      */
     @GetMapping("/{user_id}")
     public ResponseEntity<UserDTO> getUser(@PathVariable Long user_id) {
+        User foundUser = userService.findUser(user_id);
+        if(foundUser == null) {
+            return ResponseEntity.notFound().build();
+        }
         return ResponseEntity.ok().body(transformToDTO(userService.findUser(user_id)));
     }
 
