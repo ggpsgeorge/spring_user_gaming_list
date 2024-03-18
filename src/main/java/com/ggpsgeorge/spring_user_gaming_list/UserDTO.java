@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 
 /**
  * 
- * DTO of the User Object. The password and email fields are removed from the User Model
+ * DTO of the User Object. The password field is removed from the User Model
  * 
  * @author Fried Potato
  */
@@ -21,6 +21,7 @@ import lombok.NoArgsConstructor;
 public class UserDTO {
     Long id;
     String userName;
+    String email;
 
     /**
      * List of all favorite games of the user

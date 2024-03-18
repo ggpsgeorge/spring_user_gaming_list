@@ -32,4 +32,12 @@ public class UserService {
         return userRepository.findById(id).orElse(null);
     }
 
+    /**
+     * 
+     * @param id
+     */
+    public void removeUser(Long id) {
+        userRepository.deleteById(id);
+    }
+
 }

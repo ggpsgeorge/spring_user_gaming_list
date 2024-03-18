@@ -71,7 +71,7 @@ public class UserControllerTests {
     public void testGetUser_shouldReturnUserDTO200Ok() 
         throws JsonProcessingException, Exception {
 
-        Mockito.when(userService.findUser(testUser.getId())).thenReturn(testUser);
+        Mockito.when(userService.findUser(1L)).thenReturn(testUser);
         
         String request = objectMapper.writeValueAsString(testUserDTO);
         ResultActions response = mockMvc.perform(get(ENDPOINT + "/1")
@@ -90,7 +90,6 @@ public class UserControllerTests {
         Mockito.when(userService.saveUser(testUser)).thenReturn(testUser);
         
         String request = objectMapper.writeValueAsString(testUser);
-        
         ResultActions response = mockMvc.perform(post(ENDPOINT + "/add")
             .contentType(CONTENT_TYPE)
             .content(request));
