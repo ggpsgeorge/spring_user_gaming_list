@@ -1,6 +1,7 @@
 package com.ggpsgeorge.spring_user_gaming_list;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -53,5 +54,14 @@ public class UserRepositoryTests {
         User savedUser = userRepository.findById(0L).orElse(null);
 
         Assertions.assertThat(savedUser).isNull();
+    }
+
+    @Test
+    public void testDeleteById() {
+        userRepository.save(testUser);
+
+        userRepository.deleteById(testUser.getId());
+
+        Assertions.assertThat(userRepository.findById(testUser.getId())).isEqualTo(Optional.empty());
     }
 }

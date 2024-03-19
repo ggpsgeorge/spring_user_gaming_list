@@ -77,4 +77,14 @@ public class UserServiceTests {
         Assertions.assertThat(savedUser).isNull();
     }
 
+    @Test
+    public void testRemoveUser() {
+        // lenient() is necessary because of a unnecessaryStubbingException
+        Mockito.lenient().when(userRepository.save(testUser)).thenReturn(testUser);
+
+        userService.removeUser(testUser.getId());
+        
+        Assertions.assertThat(userService.findUser(testUser.getId())).isNull();
+    }
+
 }
