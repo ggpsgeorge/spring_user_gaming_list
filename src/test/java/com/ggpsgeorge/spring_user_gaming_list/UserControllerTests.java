@@ -17,6 +17,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.hamcrest.CoreMatchers.*;
+import static org.mockito.Mockito.doNothing;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -98,21 +99,45 @@ public class UserControllerTests {
     }
 
     // FIXME: Source is Null, and i dont know why. It doesn't make sense
-    // @Test
-    // public void testAddUser_shouldReturnUserDTO201Created() 
-    //     throws JsonProcessingException, Exception {
+    @Test
+    public void testAddUser_shouldReturnUserDTO201Created() 
+        throws JsonProcessingException, Exception {
         
-    //     Mockito.when(userService.saveUser(testUser)).thenReturn(testUser);
+        Mockito.when(userService.saveUser(testUser)).thenReturn(testUser);
         
-    //     String request = objectMapper.writeValueAsString(testUser);
-    //     ResultActions response = mockMvc.perform(post(ENDPOINT + "/add")
-    //         .contentType(CONTENT_TYPE)
-    //         .content(request));
+        String request = objectMapper.writeValueAsString(testUser);
+        ResultActions response = mockMvc.perform(post(ENDPOINT + "/add")
+            .contentType(CONTENT_TYPE)
+            .content(request));
             
-    //     response.andExpect(status().isCreated())
-    //         .andExpect(jsonPath("$.userName", is(testUserDTO.getUserName())))
-    //         .andDo(MockMvcResultHandlers.print());
-    // }
+        response.andExpect(status().isCreated())
+            .andExpect(jsonPath("$.userName", is(testUserDTO.getUserName())))
+            .andDo(MockMvcResultHandlers.print());
+    }
 
-    
+    @Test
+    public void testPutUser_shouldReturn202Accepted() 
+        throws JsonProcessingException, Exception {
+            
+        Long user_id = 1L;
+        Mockito.when(userService.findUser(user_id)).thenReturn(testUser);
+
+        String request = objectMapper.writeValueAsString(testUser);
+        ResultActions response = mockMvc.perform(put(ENDPOINT + "/update/" + user_id)
+        .contentType(CONTENT_TYPE)
+        .content(request));
+
+        response.andDo(MockMvcResultHandlers.print());
+    }
+
+    @Test
+    public void testUserDelete_shouldReturnString() 
+        throws Exception {
+        
+        Long user_id = 1L;
+        doNothing().when(userService).removeUser(user_id);
+
+        ResultActions response = mockMvc.perform(delete(ENDPOINT + "/delete/" + user_id));
+        response.andExpect(status().isOk());
+    }
 }
