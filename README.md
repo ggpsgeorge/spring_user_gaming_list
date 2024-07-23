@@ -24,7 +24,7 @@ Now run the the project with a IDE with Maven integration. This project used vsc
 To see if the project is running correctly, you can access an endpoint such as http://localhost:8181/api/v1/games/add. A whitelabel error page will appear.
 
 A API tool must be used to send a JSON.
-Use this JSON as a test. Send a POST to localhost:8181/api/v1/games/add
+Use this JSON as a test. Send a POST to http://localhost:8181/api/v1/games/add
 
 ```code
 {
