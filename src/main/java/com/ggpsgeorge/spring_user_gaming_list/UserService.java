@@ -36,7 +36,7 @@ public class UserService {
     /**
      * 
      * @param id id to find a User
-     * @return User object, if not exists then null
+     * @return User object, if not exists throws an error
      */
     public User findUser(Long id) {
         return userRepository.findById(id).orElse(null);

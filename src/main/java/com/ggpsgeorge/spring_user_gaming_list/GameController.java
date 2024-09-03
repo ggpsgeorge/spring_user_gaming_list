@@ -32,7 +32,7 @@ public class GameController {
      * @param game
      * @return ResponseEntity with a game object
      */
-    @PostMapping("/add")
+    @PostMapping("/")
     public ResponseEntity<Game> addGame(@RequestBody @Valid Game game) {
         return ResponseEntity.status(HttpStatus.CREATED).body(gameService.saveGame(game));
     }

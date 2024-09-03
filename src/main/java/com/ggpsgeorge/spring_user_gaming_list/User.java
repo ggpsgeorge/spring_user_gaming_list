@@ -30,6 +30,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "user_")
 public class User {
+    // FIXME: Must change rows names to not be redundant
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "user_id")

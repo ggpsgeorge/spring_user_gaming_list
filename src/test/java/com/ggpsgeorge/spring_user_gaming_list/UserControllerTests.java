@@ -31,7 +31,7 @@ public class UserControllerTests {
     @MockBean GameService gameService;
     @Autowired ObjectMapper objectMapper;
 
-    private static final String ENDPOINT = "/api/v1/users" ;
+    private static final String ENDPOINT = "/api/v1/users/" ;
     private static final String CONTENT_TYPE = "application/json";
 
     Game game1 = Game.builder()
@@ -63,7 +63,6 @@ public class UserControllerTests {
     .build();
     
     UserDTO testUserDTO = UserDTO.builder()
-    .id(1L)
     .userName("son_goku")
     .email("sonGoku@dbz.com")
     .games(games)
@@ -76,7 +75,7 @@ public class UserControllerTests {
         Mockito.when(userService.findUser(1L)).thenReturn(testUser);
         
         String request = objectMapper.writeValueAsString(testUserDTO);
-        ResultActions response = mockMvc.perform(get(ENDPOINT + "/1")
+        ResultActions response = mockMvc.perform(get(ENDPOINT + "1")
             .contentType(CONTENT_TYPE)
             .content(request));
         
@@ -91,7 +90,7 @@ public class UserControllerTests {
 
         Mockito.when(userService.findUser(1L)).thenReturn(null);
 
-        ResultActions response = mockMvc.perform(get(ENDPOINT + "/1")
+        ResultActions response = mockMvc.perform(get(ENDPOINT + "1")
             .contentType(CONTENT_TYPE));
         
         response.andExpect(status().isNotFound())
@@ -106,7 +105,7 @@ public class UserControllerTests {
         Mockito.when(userService.saveUser(testUser)).thenReturn(testUser);
         
         String request = objectMapper.writeValueAsString(testUser);
-        ResultActions response = mockMvc.perform(post(ENDPOINT + "/add")
+        ResultActions response = mockMvc.perform(post(ENDPOINT)
             .contentType(CONTENT_TYPE)
             .content(request));
             
@@ -123,7 +122,7 @@ public class UserControllerTests {
         Mockito.when(userService.findUser(user_id)).thenReturn(testUser);
 
         String request = objectMapper.writeValueAsString(testUser);
-        ResultActions response = mockMvc.perform(put(ENDPOINT + "/update/" + user_id)
+        ResultActions response = mockMvc.perform(put(ENDPOINT + user_id)
         .contentType(CONTENT_TYPE)
         .content(request));
 
@@ -137,7 +136,7 @@ public class UserControllerTests {
         Long user_id = 1L;
         doNothing().when(userService).removeUser(user_id);
 
-        ResultActions response = mockMvc.perform(delete(ENDPOINT + "/delete/" + user_id));
+        ResultActions response = mockMvc.perform(delete(ENDPOINT + user_id));
         response.andExpect(status().isOk());
     }
 }

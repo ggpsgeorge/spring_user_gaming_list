@@ -50,7 +50,6 @@ public class UserServiceTests {
     .build();
     
     UserDTO testUserDTO = UserDTO.builder()
-    .id(1L)
     .userName("son_goku")
     .games(games)
     .build();
