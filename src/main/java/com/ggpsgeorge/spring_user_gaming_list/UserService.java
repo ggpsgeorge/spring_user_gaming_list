@@ -39,7 +39,7 @@ public class UserService {
      * @return User object, if not exists throws an error
      */
     public User findUser(Long id) {
-        return userRepository.findById(id).orElse(null);
+        return userRepository.findById(id).orElseThrow();
     }
 
     /**

@@ -2,7 +2,7 @@ package com.ggpsgeorge.spring_user_gaming_list;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
+import java.util.NoSuchElementException;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -67,14 +67,21 @@ public class UserServiceTests {
         Assertions.assertThat(savedUser.getGames().get(1).getName()).isEqualTo("Elden Ring");
     }
 
-    @Test
-    public void testFindUser_shouldReturnNull() {
-        Mockito.when(userRepository.findById(1L)).thenReturn(Optional.empty());
+    // @Test
+    // public void testFindUser_shouldReturnNull() {
+    //     Mockito.when(userRepository.findById(1L)).thenReturn(Optional.empty());
 
-        User savedUser = userService.findUser(1L);
+    //     User savedUser = userService.findUser(1L);
 
-        Assertions.assertThat(savedUser).isNull();
-    }
+    //     Assertions.assertThat(savedUser).isNull();
+    // }
+
+    @Test 
+    public void testFindUser_shouldThrowNoSuchElementException(){
+        Assertions.assertThatThrownBy(() -> {
+            userService.findUser(1L);
+        }).isInstanceOf(NoSuchElementException.class);
+    }   
 
     @Test
     public void testRemoveUser() {
@@ -82,8 +89,12 @@ public class UserServiceTests {
         Mockito.lenient().when(userRepository.save(testUser)).thenReturn(testUser);
 
         userService.removeUser(testUser.getId());
+
+        Assertions.assertThatThrownBy(() -> {
+            userService.findUser(testUser.getId());
+        }).isInstanceOf(NoSuchElementException.class);
         
-        Assertions.assertThat(userService.findUser(testUser.getId())).isNull();
+        // Assertions.assertThat(userService.findUser(testUser.getId())).isNull();
     }
 
 }
