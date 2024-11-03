@@ -31,13 +31,13 @@ import lombok.NoArgsConstructor;
 public class Game {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "game_id")
+    @Column(name="game_id")
     private Long id;
 
-    @Column(name = "game_name", nullable = false)
+    @Column(nullable = false)
     private String name;
 
-    @Column(name = "game_genres")
+    @Column
     private List<String> genres;
 
     @JsonIgnore

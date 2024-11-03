@@ -33,23 +33,23 @@ public class User {
     // FIXME: Must change rows names to not be redundant
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "user_id")
+    @Column(name="user_id")
     private Long id;
 
-    @Column(name = "user_username", nullable = false)
+    @Column(nullable = false)
     private String userName;
 
     /**
      * DTO is necessary to not return the email string
      */
-    @Column(name = "user_email", nullable = false)
+    @Column(nullable = false)
     private String email;
 
     /**
      * User password. Is transformed to a hash inside the database,
      * a DTO is necessary to not return the password string
      */
-    @Column(name = "user_password", nullable = false)
+    @Column(nullable = false)
     private String password;
     
     /**
@@ -59,8 +59,8 @@ public class User {
     @ManyToMany
     @JoinTable(
         name = "user_games",
-        joinColumns = @JoinColumn(name = "game_id"),
-        inverseJoinColumns = @JoinColumn(name = "user_id")
+        joinColumns = @JoinColumn(name = "user_id"),
+        inverseJoinColumns = @JoinColumn(name = "game_id")
     )
     private List<Game> games;
     
