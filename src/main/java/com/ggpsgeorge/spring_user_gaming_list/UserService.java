@@ -1,6 +1,7 @@
 package com.ggpsgeorge.spring_user_gaming_list;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 /**
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 public class UserService {
 
     @Autowired UserRepository userRepository;
+    @Autowired PasswordEncoder passwordEncoder;
 
     /**
      * 
@@ -40,6 +42,20 @@ public class UserService {
      */
     public User findUser(Long id) {
         return userRepository.findById(id).orElseThrow();
+    }
+
+    public User updateUser(Long id, User user) {
+        User persistedUser = userRepository.findById(id).orElseThrow();
+        
+        persistedUser.setUserName(user.getUserName());
+        persistedUser.setEmail(user.getEmail());
+        persistedUser.setPassword(passwordEncoder.encode(user.getPassword()));
+        if(user.getGames() != null) {
+            persistedUser.setGames(user.getGames());
+        }
+
+        return userRepository.save(persistedUser);
+
     }
 
     /**

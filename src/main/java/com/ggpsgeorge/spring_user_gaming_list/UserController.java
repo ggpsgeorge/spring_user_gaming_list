@@ -102,18 +102,8 @@ public class UserController {
      */
     @PutMapping("/{user_id}")
     public ResponseEntity<UserDTO> putUser(
-        @RequestBody User user, @PathVariable Long user_id) {
-
-        User persistedUser = userService.findUser(user_id);
-        
-        persistedUser.setUserName(user.getUserName());
-        persistedUser.setEmail(user.getEmail());
-        persistedUser.setPassword(passwordEncoder.encode(user.getPassword()));
-        if(user.getGames() != null) {
-            persistedUser.setGames(user.getGames());
-        }
-
-        return ResponseEntity.accepted().body(transformToDTO(userService.saveUser(persistedUser)));
+        @PathVariable Long user_id, @RequestBody @Valid User user) { 
+        return ResponseEntity.accepted().body(transformToDTO(userService.updateUser(user_id, user)));
     }
 
     /**
