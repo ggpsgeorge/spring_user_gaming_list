@@ -21,10 +21,10 @@ The credentials are on the docker-compose.yml file
 
 Now run the the project with a IDE with Maven integration. This project used vscode.
 
-To see if the project is running correctly, you can access an endpoint such as http://localhost:8181/api/v1/games/add. A whitelabel error page will appear.
+To see if the project is running correctly, you can access the swagger-ui in http://localhost:8181/swagger-ui.html
 
 A API tool must be used to send a JSON.
-Use this JSON as a test. Send a POST to http://localhost:8181/api/v1/games/add
+Use this JSON as a test. Send a POST to http://localhost:8181/api/v1/games/
 
 ```code
 {
