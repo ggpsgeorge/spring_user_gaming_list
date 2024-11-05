@@ -39,7 +39,7 @@ public class GameService {
      * @return Game object, if not exists then null
      */
     public Game findGame(Long id) {
-        return gameRepository.findById(id).orElse(null);
+        return gameRepository.findById(id).orElseThrow();
     }
 
     /**

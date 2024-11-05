@@ -1,7 +1,6 @@
 package com.ggpsgeorge.spring_user_gaming_list;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -115,9 +113,9 @@ public class UserController {
         return modelMapper.map(model, UserDTO.class);
     }
 
-    @ExceptionHandler({NoSuchElementException.class})
-    public ResponseEntity<String> handleNoSuchElementException(){
-        return ResponseEntity.notFound().build();
-    }
+    // @ExceptionHandler({NoSuchElementException.class})
+    // public ResponseEntity<String> handleNoSuchElementException(){
+    //     return ResponseEntity.notFound().build();
+    // }
 
 }
