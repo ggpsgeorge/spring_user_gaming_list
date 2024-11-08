@@ -43,8 +43,6 @@ It will return
     ]
 }
 ```
-That's it
-
 To shutdown the docker container:
 ```sh
 docker compose down
